@@ -148,3 +148,32 @@
         document.execCommand('copy');
         alert("Copied: " + upiId.value);
       }
+
+      document.addEventListener('DOMContentLoaded', function () {
+    const items = document.querySelectorAll('.newspaper-item');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+    let currentIndex = 0;
+    const itemsPerLoad = 6;
+
+    function showItems() {
+        for (let i = currentIndex; i < currentIndex + itemsPerLoad && i < items.length; i++) {
+            items[i].style.display = 'block';
+        }
+        currentIndex += itemsPerLoad;
+
+        if (currentIndex >= items.length) {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+
+    // Hide all items initially
+    items.forEach(item => {
+        item.style.display = 'none';
+    });
+
+    // Show the first set of items
+    showItems();
+
+    loadMoreBtn.addEventListener('click', showItems);
+});
