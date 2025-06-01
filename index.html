@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JJ Foundation</title>
+    <title>J J Foundation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     
@@ -13,14 +13,14 @@
     <header id="header">
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo"><i class="fas fa-hands-helping"></i>JJ <span>FOUNDATION</span></a>
+                <a href="#" class="logo"><img src="LOGO-removebg-preview.png" alt="logo">&nbsp;</i>J J <span>&nbsp;FOUNDATION</span></a>
                 <ul class="nav-links">
                     <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#works">Our Works</a></li>
                     <li><a href="#news">News Gallery</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="#donate" class="btn btn-accent">Donate</a></li>
+                    <li><a href="#donate" id="donateBtn" class="btn btn-accent">Donate</a></li>
                 </ul>
                 <div class="hamburger">
                     <div></div>
@@ -29,6 +29,29 @@
                 </div>
             </nav>
         </div>
+ <!-- QR Code Popup -->
+<div id="qrModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Support Our Mission</h3>
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+      <img src="jjf_qr.jpg" alt="Donation QR Code" class="qr-code">
+      <div class="donation-info">
+        <p>Scan QR to make a donation</p>
+        <div class="donation-options">
+          <span class="option">UPI</span>
+          <span class="option">Paytm</span>
+          <span class="option">PhonePe</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p>Your contribution makes a difference!</p>
+    </div>
+  </div>
+</div>
     </header>
 
     <!-- Hero Section -->
@@ -38,7 +61,8 @@
                 <h1>Be the Reason Someone's Happiness.</h1>
                 <p>!! इंसान है तो इंसान की मदद करते है , यही हमारा धर्म है यही हमारा कर्म है !!</p>
                     <a href="#works" class="btn">Our Gallery</a>
-                    <a href="#donate" class="btn btn-accent">Donate Now</a>
+                   <!-- Your existing styled button -->
+<a href="#donate" id="donateBtn" class="btn btn-accent">Donate Now</a>
                 </div>
             </div>
         </div>
@@ -47,18 +71,18 @@
     <!-- About Section -->
     <section class="section about" id="about">
         <div class="container">
-            <h2 class="section-title">About JJ Foundation</h2>
+            <h2 class="section-title">About J J Foundation</h2>
             <div class="about-content">
                 <div class="about-img">
-                    <img src="aboutusimg/DSC_1728.JPG" alt="JJ Foundation Team">
+                    <img src="aboutusimg/DSC_1728.JPG" alt="J J Foundation Team">
                 </div>
                 <div class="about-text">
                     <h2>We Are Non-Profit Organization</h2>
-                    <p>JJ Foundation, based in Ahmedabad, is a non-profit organization dedicated to uplifting the lives of the underprivileged, 
+                    <p>J J Foundation, based in Ahmedabad, is a non-profit organization dedicated to uplifting the lives of the underprivileged, 
                         under-supported, and socially neglected individuals of society.
                          With a strong commitment to community welfare, the foundation operates
                           with the core values of compassion, service, and inclusivity.<br>
- <b>Key Activities of JJ Foundation:</b>
+ <b>Key Activities of J J Foundation:</b>
     <br>
     📦 Monthly grain kits for economically weaker families.
     <br>
@@ -562,7 +586,7 @@
             <div class="footer-container">
                 <div class="footer-about">
                     <a href="#" class="footer-logo">JJ <span>FOUNDATION</span></a>
-                    <p>JJ Foundation is a non-profit organization dedicated to creating sustainable change through education, healthcare, and community development initiatives.</p>
+                    <p>J J Foundation is a non-profit organization dedicated to creating sustainable change through education, healthcare, and community development initiatives.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                         <!-- <a href="#" class="social-link"><i class="fab fa-twitter"></i></a> -->
@@ -604,7 +628,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 JJ Foundation. All Rights Reserved. | Designed By Jaykishan</p>
+                <p>&copy; 2025 J J Foundation. All Rights Reserved. | Designed By Jaykishan</p>
             </div>
         </div>
     </footer>

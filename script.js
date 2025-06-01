@@ -177,3 +177,41 @@
 
     loadMoreBtn.addEventListener('click', showItems);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById("qrModal");
+  const closeBtn = document.querySelector(".close");
+  
+  // Function to open modal
+  function openDonateModal(e) {
+    e.preventDefault();
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+  }
+
+  // Add click handler to elements (combine ID and class approach)
+  const donateElements = [
+    document.getElementById("donateBtn"),
+    ...document.querySelectorAll(".btn-accent, .btn-secondary") // Add any classes that should trigger
+  ].filter(Boolean); // Remove nulls
+
+  donateElements.forEach(element => {
+    element.addEventListener("click", openDonateModal);
+  });
+
+  // Close modal functions (keep your existing)
+  function closeModal() {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+  
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  
+  window.addEventListener("click", function(e) {
+    if (e.target === modal) closeModal();
+  });
+  
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && modal.style.display === "block") closeModal();
+  });
+});
