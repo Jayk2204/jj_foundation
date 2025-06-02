@@ -20,7 +20,7 @@
                     <li><a href="#news">News Gallery</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="#donate" id="donateBtn" class="btn btn-accent">Donate</a></li>
+                    <li><a href="#donate" id="donateBtn" class="btn btn-accent">Donate Us</a></li>
                 </ul>
                 <div class="hamburger">
                     <div></div>
@@ -36,17 +36,71 @@
       <h3>Support Our Mission</h3>
       <span class="close">&times;</span>
     </div>
+    
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="qr-tab">Scan QR</button>
+      <button class="tab-btn" data-tab="bank-tab">Via Bank</button>
+      <button class="tab-btn" data-tab="upi-tab">UPI ID</button>
+    </div>
+    
     <div class="modal-body">
-      <img src="jjf_qr.jpg" alt="Donation QR Code" class="qr-code">
-      <div class="donation-info">
-        <p>Scan QR to make a donation</p>
-        <div class="donation-options">
-          <span class="option">UPI</span>
-          <span class="option">Paytm</span>
-          <span class="option">PhonePe</span>
+      <!-- QR Tab -->
+      <div id="qr-tab" class="tab-content active">
+        <img src="jjf_qr.jpg" alt="Donation QR Code" class="qr-code">
+        <div class="donation-info">
+          <p>Scan QR to make a donation</p>
+        </div>
+      </div>
+      
+      <!-- Bank Tab -->
+      <div id="bank-tab" class="tab-content">
+        <div class="bank-details">
+          <div class="detail-item">
+            <span class="detail-label">Account Holder:</span>
+            <span class="detail-value">J J Foundation</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Account Number:</span>
+            <span class="detail-value">59110033666999</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Bank Name:</span>
+            <span class="detail-value">HDFC BANK</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">IFSC Code:</span>
+            <span class="detail-value">HDFC0000971</span>
+          </div>
+          <button class="copy-btn" data-text="JJ Foundation\nA/C: 1234567890\nBank: State Bank of India\nIFSC: SBIN0001234">
+            Copy Details
+          </button>
+        </div>
+      </div>
+      
+      <!-- UPI Tab -->
+      <div id="upi-tab" class="tab-content">
+        <div class="upi-details">
+          <div class="upi-id">
+            <span>jjfoundation.62573776@hdfcbank</span>
+            <button class="copy-btn" data-text="jjfoundation@upi">
+              Copy UPI ID
+            </button>
+          </div>
+          <div class="apps-list">
+  <a href="https://gpay.app.goo.gl/" target="_blank" class="app-icon">
+    <img src="https://img.icons8.com/?size=100&id=am4ltuIYDpQ5&format=png&color=000000" alt="Google Pay">
+  </a>
+  <a href="https://www.phonepe.com/" target="_blank" class="app-icon">
+    <img src="https://img.icons8.com/?size=100&id=OYtBxIlJwMGA&format=png&color=000000" alt="PhonePe">
+  </a>
+  <a href="https://paytm.com/" target="_blank" class="app-icon">
+    <img src="https://pwebassets.paytm.com/commonwebassets/paytmweb/header/images/logo.svg" alt="Paytm">
+  </a>
+</div>
         </div>
       </div>
     </div>
+    
     <div class="modal-footer">
       <p>Your contribution makes a difference!</p>
     </div>
@@ -60,9 +114,9 @@
             <div class="hero-content">
                 <h1>Be the Reason Someone's Happiness.</h1>
                 <p>!! इंसान है तो इंसान की मदद करते है , यही हमारा धर्म है यही हमारा कर्म है !!</p>
-                    <a href="#works" class="btn">Our Gallery</a>
+                    <!-- <a href="#works" class="btn">Our Gallery</a> -->
                    <!-- Your existing styled button -->
-<a href="#donate" id="donateBtn" class="btn btn-accent">Donate Now</a>
+<!-- <a href="#donate" id="anotherDonateBtn" class="btn btn-accent">Donate Now</a> -->
                 </div>
             </div>
         </div>
@@ -92,7 +146,7 @@
     <br>
     🏫 School renovation.
     <br>
-    🧓 Monthly aid to 99+ individuals including widows, divorcees, and elderly citizens.
+    🧓 Monthly aid to 135+ individuals including widows, divorcees, and elderly citizens.
     <br>
     🐦 Animal and bird care.
     <br>
@@ -105,11 +159,11 @@
                             <div class="stat-label">Projects</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" data-count="2000">0</div>
+                            <div class="stat-number" data-count="4260">0</div>
                             <div class="stat-label">Tree Plantation</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" data-count="5">0</div>
+                            <div class="stat-number" data-count="9">0</div>
                             <div class="stat-label">Years of Service</div>
                         </div>
                     </div>
@@ -495,8 +549,8 @@
                         </div>
                         <div class="contact-text">
                             <h3>Working Hours</h3>
-                            <p>Monday - Friday: 9:00 - 18:00 <br>
-                            Saturday: 10:00 - 15:00</p>
+                            <p>Monday - Saturday: 10:00AM-12:00PM /4:30PM-06:00PM <br>
+                            </p>
                             <p></p>
                         </div>
                     </div>

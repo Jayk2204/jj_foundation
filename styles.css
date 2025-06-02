@@ -925,7 +925,7 @@
             margin-right: 10px;
           }
     
-          /* QR Modal Styles */
+  /* Modal Styles */
 .modal {
   display: none;
   position: fixed;
@@ -936,32 +936,32 @@
   height: 100%;
   background-color: rgba(0,0,0,0.85);
   backdrop-filter: blur(5px);
-  animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  animation: fadeIn 0.4s ease-out;
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: white;
   margin: 5% auto;
-  padding: 0;
-  border-radius: 16px;
   width: 450px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 50px rgba(0,0,0,0.3);
-  transform: scale(0.9);
-  animation: modalOpen 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transform: translateY(-20px);
+  opacity: 0;
+  animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .modal-header {
-  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
   color: white;
   padding: 20px;
   position: relative;
+  text-align: center;
 }
 
 .modal-header h3 {
   margin: 0;
   font-size: 1.5rem;
-  text-align: center;
 }
 
 .close {
@@ -970,9 +970,8 @@
   top: 20px;
   font-size: 28px;
   font-weight: bold;
-  color: white;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.3s;
 }
 
 .close:hover {
@@ -980,50 +979,182 @@
   color: #ffeb3b;
 }
 
-.modal-body {
-  padding: 30px;
-  text-align: center;
+/* Tab Buttons */
+.tab-buttons {
+  display: flex;
+  background: #f5f7fa;
+  border-bottom: 1px solid #e1e5eb;
 }
 
+.tab-btn {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-btn.active {
+  color: #2575fc;
+  background: white;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #2575fc;
+  animation: underlineGrow 0.3s ease-out;
+}
+
+.tab-btn:hover:not(.active) {
+  background: rgba(0,0,0,0.05);
+  color: #495057;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  padding: 25px;
+  animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* QR Tab */
 .qr-code {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin: 0 auto 20px;
   border: 10px solid white;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   border-radius: 12px;
-  background: white;
+  display: block;
+  transition: transform 0.3s;
 }
 
-.donation-info p {
-  font-size: 1.1rem;
-  color: #555;
+.qr-code:hover {
+  transform: scale(1.03);
+}
+
+/* Bank Tab */
+.bank-details {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
   margin-bottom: 15px;
+  align-items: center;
 }
 
-.donation-options {
+.detail-label {
+  font-weight: 600;
+  color: #495057;
+  width: 120px;
+}
+
+.detail-value {
+  background: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  flex: 1;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* UPI Tab */
+.upi-details {
+  text-align: center;
+}
+
+.upi-id {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2575fc;
+}
+
+.apps-list {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 20px;
 }
 
-.option {
-  background: #f0f0f0;
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  color: #4e54c8;
-  font-weight: 500;
+.app-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
 }
 
+.app-icon:hover {
+  transform: translateY(-5px);
+}
+
+.app-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Copy Buttons */
+.copy-btn {
+  background: #2575fc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 15px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copy-btn:hover {
+  background: #1a5cb8;
+  box-shadow: 0 4px 12px rgba(37, 117, 252, 0.3);
+}
+
+.copy-btn::before {
+  content: '📋';
+}
+
+.copy-btn.copied {
+  background: #28a745;
+}
+
+.copy-btn.copied::before {
+  content: '✓';
+}
+
+/* Modal Footer */
 .modal-footer {
-  background: #f8f9fa;
-  padding: 15px;
   text-align: center;
+  padding: 15px;
+  background: #f8f9fa;
+  color: #6c757d;
   font-size: 0.9rem;
-  color: #666;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e1e5eb;
 }
 
 /* Animations */
@@ -1032,24 +1163,29 @@
   to { opacity: 1; }
 }
 
-@keyframes modalOpen {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes modalSlideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-/* Responsive Design */
+@keyframes underlineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   .modal-content {
     width: 90%;
     margin: 10% auto;
   }
   
-  .qr-code {
-    width: 250px;
-    height: 250px;
+  .tab-buttons {
+    flex-direction: column;
   }
   
-  .modal-header h3 {
-    font-size: 1.3rem;
+  .qr-code {
+    width: 200px;
+    height: 200px;
   }
 }
