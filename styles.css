@@ -19,28 +19,37 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
-            overflow-x: hidden;
-        }
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: var(--light);
+    overflow-x: hidden;
+}
 
         /* Typography */
         h1, h2, h3, h4 {
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
+          font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
         }
 
         h1 { font-size: 2.5rem; }
         h2 { font-size: 2rem; }
         h3 { font-size: 1.75rem; }
         h4 { font-size: 1.5rem; }
+       p, a, li, span, input, button {
+    font-family: 'Nunito', sans-serif;
+}
 
-        p { margin-bottom: 1.5rem; }
+        p { margin-bottom: 1.5rem;
+           p, a, li, span, input, button {
+    font-family: 'Nunito', sans-serif;
+}
+         }
 
         a {
+            font-family: 'Nunito', sans-serif;
             text-decoration: none;
             color: var(--secondary);
             transition: var(--transition);
