@@ -180,28 +180,38 @@ document.addEventListener('DOMContentLoaded', function() {
         updateGalleryVisibility();
     }
 
-    // ===== Counter Animation =====
-    const statNumbers = document.querySelectorAll('.stat-number');
-    const speed = 200;
-
+    // ===== IMPROVED COUNTER ANIMATION =====
     function animateCounters() {
-        statNumbers.forEach(number => {
-            const target = +number.getAttribute('data-count');
-            const count = +number.innerText;
-            const increment = target / speed;
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const animationDuration = 2000; // 2 seconds
+        const frameDuration = 1000 / 60; // 60fps
+        
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-count'));
+            const start = 0;
+            const totalFrames = Math.round(animationDuration / frameDuration);
+            let frame = 0;
             
-            if (count < target) {
-                number.innerText = Math.ceil(count + increment);
-                setTimeout(animateCounters, 1);
-            } else {
-                number.innerText = target;
-            }
+            // Create an animation loop
+            const counter = setInterval(() => {
+                frame++;
+                const progress = frame / totalFrames;
+                const currentValue = Math.round(target * progress);
+                
+                // Update the displayed number
+                stat.textContent = currentValue;
+                
+                // Stop the animation when we reach the target
+                if (frame === totalFrames) {
+                    clearInterval(counter);
+                }
+            }, frameDuration);
         });
     }
 
-    // Initialize counters when section is in view
-    const aboutSection = document.querySelector('.about');
-    if (aboutSection) {
+    // Initialize counters when impact section is in view
+    const impactSection = document.querySelector('.impact-section');
+    if (impactSection) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -209,8 +219,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.5 });
-        observer.observe(aboutSection);
+        }, { 
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px' // Trigger when 100px from bottom of viewport
+        });
+        observer.observe(impactSection);
     }
 
     // ===== Smooth Scrolling =====
