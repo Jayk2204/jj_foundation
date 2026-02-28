@@ -1,24 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ===== Mobile Navigation =====
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links li');
+ // ===== Mobile Navigation FIXED =====
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+const navItems = document.querySelectorAll('.nav-links a');
 
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('nav-active');
-            hamburger.classList.toggle('toggle');
-        });
-    }
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('nav-active');
+        hamburger.classList.toggle('toggle');
+    });
+}
 
-    if (navItems) {
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navLinks.classList.remove('nav-active');
-                hamburger.classList.remove('toggle');
-            });
-        });
+// ✅ Close menu when clicking any link
+navItems.forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-active');
+        hamburger.classList.remove('toggle');
+    });
+});
+
+// ✅ Close menu when clicking outside
+document.addEventListener('click', function (e) {
+    if (
+        navLinks.classList.contains('nav-active') &&
+        !navLinks.contains(e.target) &&
+        !hamburger.contains(e.target)
+    ) {
+        navLinks.classList.remove('nav-active');
+        hamburger.classList.remove('toggle');
     }
+});
+
+// ✅ Reset menu on resize
+window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) {
+        navLinks.classList.remove('nav-active');
+        hamburger.classList.remove('toggle');
+    }
+});
 
     // ===== Donation Modal =====
     const modal = document.getElementById("qrModal");
