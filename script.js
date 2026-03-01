@@ -1,43 +1,47 @@
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
- // ===== Mobile Navigation FIXED =====
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const navItems = document.querySelectorAll('.nav-links a');
+    // ===== Mobile Navigation FIXED =====
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links a');
 
-if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('nav-active');
-        hamburger.classList.toggle('toggle');
-    });
-}
-
-// ✅ Close menu when clicking any link
-navItems.forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('nav-active');
-        hamburger.classList.remove('toggle');
-    });
-});
-
-// ✅ Close menu when clicking outside
-document.addEventListener('click', function (e) {
-    if (
-        navLinks.classList.contains('nav-active') &&
-        !navLinks.contains(e.target) &&
-        !hamburger.contains(e.target)
-    ) {
-        navLinks.classList.remove('nav-active');
-        hamburger.classList.remove('toggle');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            hamburger.classList.toggle('toggle');
+        });
     }
-});
 
-// ✅ Reset menu on resize
-window.addEventListener('resize', function () {
-    if (window.innerWidth > 768) {
-        navLinks.classList.remove('nav-active');
-        hamburger.classList.remove('toggle');
-    }
-});
+    // Close menu when clicking any link
+    navItems.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('nav-active');
+            hamburger.classList.remove('toggle');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function (e) {
+        if (
+            navLinks && 
+            navLinks.classList.contains('nav-active') &&
+            !navLinks.contains(e.target) &&
+            !hamburger.contains(e.target)
+        ) {
+            navLinks.classList.remove('nav-active');
+            hamburger.classList.remove('toggle');
+        }
+    });
+
+    // Reset menu on resize
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            if (navLinks) navLinks.classList.remove('nav-active');
+            if (hamburger) hamburger.classList.remove('toggle');
+        }
+    });
 
     // ===== Donation Modal =====
     const modal = document.getElementById("qrModal");
@@ -47,8 +51,10 @@ window.addEventListener('resize', function () {
     // Function to open modal
     function openDonateModal(e) {
         e.preventDefault();
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
+        if (modal) {
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
     }
 
     // Add to your existing ID button
@@ -58,8 +64,10 @@ window.addEventListener('resize', function () {
 
     // Close modal
     function closeModal() {
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
+        if (modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
     }
 
     if (closeBtn) {
@@ -75,7 +83,7 @@ window.addEventListener('resize', function () {
 
     // Close with Escape key
     document.addEventListener("keydown", function(e) {
-        if (e.key === "Escape" && modal.style.display === "block") {
+        if (e.key === "Escape" && modal && modal.style.display === "block") {
             closeModal();
         }
     });
@@ -93,7 +101,10 @@ window.addEventListener('resize', function () {
             // Add active class to clicked button and corresponding tab
             this.classList.add("active");
             const tabId = this.getAttribute("data-tab");
-            document.getElementById(tabId).classList.add("active");
+            const tabElement = document.getElementById(tabId);
+            if (tabElement) {
+                tabElement.classList.add("active");
+            }
         });
     });
 
@@ -102,13 +113,18 @@ window.addEventListener('resize', function () {
     copyButtons.forEach(button => {
         button.addEventListener("click", function() {
             const textToCopy = this.getAttribute("data-text");
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const originalText = this.textContent;
-                this.textContent = "Copied!";
-                setTimeout(() => {
-                    this.textContent = originalText;
-                }, 2000);
-            });
+            if (textToCopy) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = this.textContent;
+                    this.textContent = "Copied!";
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error("Failed to copy:", err);
+                    alert("Failed to copy text");
+                });
+            }
         });
     });
 
@@ -179,20 +195,22 @@ window.addEventListener('resize', function () {
     }
 
     // Filter functionality
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Update active button
-            filterBtns.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Set new filter and reset visible items
-            currentFilter = this.getAttribute('data-filter');
-            visibleItems = 6;
-            
-            // Update visibility
-            updateGalleryVisibility();
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active button
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Set new filter and reset visible items
+                currentFilter = this.getAttribute('data-filter') || 'all';
+                visibleItems = 6;
+                
+                // Update visibility
+                updateGalleryVisibility();
+            });
         });
-    });
+    }
     
     // Initialize the gallery with 6 random images
     if (galleryItems.length > 0) {
@@ -206,8 +224,7 @@ window.addEventListener('resize', function () {
         const frameDuration = 1000 / 60; // 60fps
         
         statNumbers.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-count'));
-            const start = 0;
+            const target = parseInt(stat.getAttribute('data-count') || '0');
             const totalFrames = Math.round(animationDuration / frameDuration);
             let frame = 0;
             
@@ -222,6 +239,7 @@ window.addEventListener('resize', function () {
                 
                 // Stop the animation when we reach the target
                 if (frame === totalFrames) {
+                    stat.textContent = target;
                     clearInterval(counter);
                 }
             }, frameDuration);
@@ -240,7 +258,7 @@ window.addEventListener('resize', function () {
             });
         }, { 
             threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px' // Trigger when 100px from bottom of viewport
+            rootMargin: '0px 0px -100px 0px'
         });
         observer.observe(impactSection);
     }
@@ -263,7 +281,7 @@ window.addEventListener('resize', function () {
                 // Close mobile menu if open
                 if (navLinks && navLinks.classList.contains('nav-active')) {
                     navLinks.classList.remove('nav-active');
-                    hamburger.classList.remove('toggle');
+                    if (hamburger) hamburger.classList.remove('toggle');
                 }
             }
         });
@@ -298,17 +316,238 @@ window.addEventListener('resize', function () {
 
         newsLoadMoreBtn.addEventListener('click', showNewsItems);
     }
+
+    // ===== IMPROVED CONTACT FORM HANDLER (Using IDs) =====
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        console.log("✓ Contact form found and handler attached");
+        contactForm.addEventListener('submit', handleContactSubmit);
+    } else {
+        console.error("✗ Contact form not found! Make sure the form has id='contactForm'");
+    }
+
+    // ===== Load Works from Firebase =====
+    loadWorksFromFirebase();
 });
 
-// ===== UPI Payment Functions =====
+// ===== HANDLE CONTACT FORM SUBMISSION (Improved version) =====
+async function handleContactSubmit(e) {
+    e.preventDefault();
+    console.log("📝 Form submission started");
+    
+    // Get form elements by ID
+    const nameInput = document.getElementById('contactName');
+    const emailInput = document.getElementById('contactEmail');
+    const subjectInput = document.getElementById('contactSubject');
+    const messageInput = document.getElementById('contactMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // Check if elements exist
+    if (!nameInput || !emailInput || !messageInput || !submitBtn) {
+        console.error("Form elements not found:", { nameInput, emailInput, messageInput, submitBtn });
+        showFormMessage('Form error. Please refresh and try again.', 'error');
+        return;
+    }
+    
+    // Get values
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const subject = subjectInput ? subjectInput.value.trim() : '';
+    const message = messageInput.value.trim();
+    
+    console.log("Form data:", { name, email, subject, message });
+    
+    // Validate form
+    if (!name || !email || !message) {
+        showFormMessage('Please fill in all required fields!', 'error');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showFormMessage('Please enter a valid email address!', 'error');
+        return;
+    }
+    
+    // Show loading state
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+    submitBtn.style.cursor = 'not-allowed';
+    
+    try {
+        // Save to Firebase Firestore
+        const docRef = await db.collection("messages").add({
+            name: name,
+            email: email,
+            subject: subject || 'No Subject',
+            message: message,
+            createdAt: new Date().toISOString(),
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            isRead: false
+        });
+        
+        console.log("✅ Message saved successfully with ID:", docRef.id);
+        
+        // Success message
+        showFormMessage('Thank you! Your message has been sent successfully.', 'success');
+        
+        // Clear form
+        document.getElementById('contactForm').reset();
+        
+    } catch (error) {
+        console.error("❌ Error saving message:", error);
+        showFormMessage('Failed to send message. Please check your connection and try again.', 'error');
+    } finally {
+        // Reset button
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.style.cursor = 'pointer';
+    }
+}
+
+// ===== EMAIL VALIDATION HELPER =====
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// ===== SHOW FORM MESSAGE (Improved version) =====
+function showFormMessage(message, type) {
+    // Remove any existing message
+    const existingMsg = document.querySelector('.form-message');
+    if (existingMsg) {
+        existingMsg.remove();
+    }
+    
+    // Create message element
+    const msgElement = document.createElement('div');
+    msgElement.className = `form-message ${type}`;
+    msgElement.textContent = message;
+    msgElement.style.cssText = `
+        padding: 12px 20px;
+        margin-top: 15px;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        animation: slideUp 0.3s ease;
+        font-weight: 500;
+        ${type === 'success' 
+            ? 'background: #d4edda; color: #155724; border: 1px solid #c3e6cb;' 
+            : 'background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;'
+        }
+    `;
+    
+    // Add to form
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.appendChild(msgElement);
+        
+        // Scroll to message
+        msgElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // Auto remove after 5 seconds for success messages
+    if (type === 'success') {
+        setTimeout(() => {
+            if (msgElement.parentNode) {
+                msgElement.style.animation = 'slideDown 0.3s ease';
+                setTimeout(() => msgElement.remove(), 300);
+            }
+        }, 5000);
+    }
+}
+
+// ===== LOAD WORKS FROM FIREBASE =====
+async function loadWorksFromFirebase() {
+    const galleryGrid = document.getElementById("galleryGrid");
+    if (!galleryGrid) {
+        console.error("Gallery grid not found");
+        return;
+    }
+
+    try {
+        console.log("Loading works from Firebase...");
+        const snapshot = await db.collection("works")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        galleryGrid.innerHTML = "";
+
+        if (snapshot.empty) {
+            galleryGrid.innerHTML = '<p class="no-works">No works found.</p>';
+            return;
+        }
+
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const category = data.category || 'uncategorized';
+            const title = data.title || 'Untitled';
+            const imageUrl = data.imageUrl || '';
+
+            galleryGrid.innerHTML += `
+                <div class="gallery-item" data-category="${category.toLowerCase()}">
+                    <img src="${imageUrl}" class="gallery-img" alt="${title}" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">${title}</h3>
+                        <span class="gallery-category">${category}</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        console.log(`✅ Loaded ${snapshot.size} works`);
+        
+        // Re-initialize gallery filters after loading new items
+        setTimeout(() => {
+            initializeGalleryFilters();
+        }, 500);
+        
+    } catch (error) {
+        console.error("Error loading works:", error);
+        galleryGrid.innerHTML = '<p class="error-message">Error loading works. Please refresh.</p>';
+    }
+}
+
+// ===== INITIALIZE GALLERY FILTERS =====
+function initializeGalleryFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    if (filterBtns.length && galleryItems.length) {
+        console.log("Initializing gallery filters with", galleryItems.length, "items");
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter') || 'all';
+                
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+}
+
+// ===== UPI PAYMENT FUNCTIONS =====
 function initiateUPIPayment() {
-    // Try to open UPI app directly
     window.location.href = "upi://pay?pa=jjfoundation.62573776@hdfcbank&pn=JJFoundation&am=&tn=Donation";
     
-    // Show fallback if UPI app not found (after 2 seconds)
     setTimeout(function(){
         if(!document.hidden) {
-            document.getElementById('upi-fallback').style.display = 'block';
+            const fallback = document.getElementById('upi-fallback');
+            if (fallback) {
+                fallback.style.display = 'block';
+            }
         }
     }, 2000);
 }
@@ -318,6 +557,47 @@ function copyUpiId() {
     if (upiId) {
         upiId.select();
         document.execCommand('copy');
-        alert("Copied: " + upiId.value);
+        alert("UPI ID copied: " + upiId.value);
     }
+}
+
+// ===== ADD ANIMATIONS =====
+if (!document.querySelector('#slide-animations')) {
+    const slideAnimations = document.createElement('style');
+    slideAnimations.id = 'slide-animations';
+    slideAnimations.textContent = `
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+        }
+        
+        .no-works, .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .form-message {
+            transition: all 0.3s ease;
+        }
+    `;
+    document.head.appendChild(slideAnimations);
 }
